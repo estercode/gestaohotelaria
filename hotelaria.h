@@ -11,7 +11,10 @@
 typedef struct {
     int id;
     char nome[100];
+    char cpf[15];  
+    char email[100];  
     int quarto;
+    int dias;  // Quantidade de dias de estadia
     int checkIn;
     int checkOut;
 } Hospede;
