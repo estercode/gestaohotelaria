@@ -4,15 +4,17 @@
 int main() {
     Hospede hospedes[MAX_HOSPEDES];
     int totalHospedes = 0;
+    STATUS status;
 
     carregarHospedesTxt(hospedes, &totalHospedes);  // Carregar dados ao iniciar o programa
+    carregarHospedesBin(hospedes, &totalHospedes);
 
     int opcao;
     do {
         printf("\n\tMENU PRINCIPAL - HOTELARIA\n\t\n");
         printf("\t1 - Cadastrar Hospede\n\t");
         printf("2 - Listar Hospedes\n\t");
-        printf("3 - Buscar Hospede\n\t");
+        printf("3 - Realizar Check-in \n\t");
         printf("4 - Realizar Check-out\n\t");
         printf("0 - Sair\n");
         printf("Escolha uma opção: ");
