@@ -14,7 +14,7 @@ int main() {
         printf("\n\tMENU PRINCIPAL - HOTELARIA\n\t\n");
         printf("\t1 - Cadastrar Hospede\n\t");
         printf("2 - Listar Hospedes\n\t");
-        printf("3 - Realizar Check-in \n\t");
+        printf("3 - Realizar Check-in\n\t");
         printf("4 - Realizar Check-out\n\t");
         printf("0 - Sair\n");
         printf("Escolha uma opção: ");
@@ -28,7 +28,7 @@ int main() {
                 listarHospedes(hospedes, totalHospedes);
                 break;
             case 3:
-                buscarHospede(hospedes, totalHospedes);
+                checkIn(hospedes, totalHospedes);  // Chamada da função checkIn
                 break;
             case 4:
                 checkOutHospede(hospedes, &totalHospedes);

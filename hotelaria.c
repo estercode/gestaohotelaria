@@ -63,9 +63,35 @@ STATUS listarHospedes(Hospede *hospedes, int totalHospedes) {
     return OK;
 }
 
-STATUS buscarHospede(Hospede *hospedes, int totalHospedes) {
-    printf("Buscar Hospede\n");
-    return OK;
+STATUS checkIn(Hospede *hospedes, int totalHospedes) {
+    char nome[100];
+    int quarto;
+    int encontrado = 0;
+
+    printf("Informe o nome do hóspede: ");
+    fgets(nome, sizeof(nome), stdin);
+    nome[strcspn(nome, "\n")] = 0;  // Remove a nova linha do final
+
+    printf("Informe o número do quarto: ");
+    scanf("%d", &quarto);
+    clearBuffer();  // Limpa o buffer após a leitura
+
+    // Verificar se há um hóspede com o nome e quarto correspondentes
+    for (int i = 0; i < totalHospedes; i++) {
+        // Verifica se o nome e quarto correspondem
+        if (strcmp(hospedes[i].nome, nome) == 0 && hospedes[i].quarto == quarto) {
+            encontrado = 1;  // Hóspede encontrado
+            break;
+        }
+    }
+
+    if (encontrado) {
+        printf("Check-in realizado com sucesso para %s, quarto %d.\n", nome, quarto);
+        return OK;
+    } else {
+        printf("Não há reservas nesse nome ou quarto.\n");
+        return ERRO;
+    }
 }
 
 STATUS checkOutHospede(Hospede *hospedes, int *totalHospedes) {

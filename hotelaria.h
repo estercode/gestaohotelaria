@@ -40,7 +40,7 @@ STATUS carregarHospedesTxt(Hospede *hospedes, int *totalHospedes);
 STATUS salvarHospedesBin(Hospede *hospedes, int totalHospedes);
 STATUS carregarHospedesBin(Hospede *hospedes, int *totalHospedes);
 STATUS listarHospedes(Hospede *hospedes, int totalHospedes);
-STATUS buscarHospede(Hospede *hospedes, int totalHospedes);
+STATUS checkIn(Hospede *hospedes, int totalHospedes);
 STATUS checkOutHospede(Hospede *hospedes, int *totalHospedes);
 void clearBuffer();
 
