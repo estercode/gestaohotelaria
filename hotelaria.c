@@ -11,17 +11,18 @@ STATUS cadastrarHospede(Hospede *hospedes, int *totalHospedes) {
     Hospede novoHospede;
     novoHospede.id = *totalHospedes + 1; 
     printf("Nome do Hóspede: ");
-    fgets(novoHospede.nome, sizeof(novoHospede.nome), stdin);
+    //fgets(novoHospede.nome, sizeof(novoHospede.nome), stdin);
+    scanf(" %[^\n]", novoHospede.nome);
     clearBuffer();
     printf("CPF do Hóspede: ");
     fgets(novoHospede.cpf, sizeof(novoHospede.cpf), stdin);
-    clearBuffer();  
+  
     printf("E-mail do Hóspede: ");
     fgets(novoHospede.email, sizeof(novoHospede.email), stdin);
-    clearBuffer(); 
+ 
     printf("Número do Quarto: ");
     scanf("%d", &novoHospede.quarto);
-    clearBuffer();  
+
 
     printf("Quantidade de dias de estadia: ");
     scanf("%d", &novoHospede.dias);
@@ -105,37 +106,50 @@ STATUS carregarHospedesBin(Hospede *hospedes, int *totalHospedes) {
 
 
 STATUS listarHospedes(Hospede *hospedes, int totalHospedes) {
-    printf("Listar Hospede\n");
+ if (totalHospedes == 0) {
+        return ERRO;
+    }
+
+    printf("Lista de Hóspedes:\n");
+    for (int i = 0; i < totalHospedes; i++) {
+        printf("\nID: %d\nNome: %s\nQuarto: %d \nCheck-in: %d \nCheck-out: %d\n",
+               hospedes[i].id, hospedes[i].nome, hospedes[i].quarto, hospedes[i].checkIn, hospedes[i].checkOut);
+    }
+
     return OK;
 }
 
 STATUS checkIn(Hospede *hospedes, int totalHospedes) {
-    char nome[100];
+     char nome[100];
     int quarto;
     int encontrado = 0;
 
     printf("Informe o nome do hóspede: ");
+    clearBuffer();  
     fgets(nome, sizeof(nome), stdin);
-    nome[strcspn(nome, "\n")] = 0;
-    
+    nome[strcspn(nome, "\n")] = 0; 
+
     printf("Informe o número do quarto: ");
     scanf("%d", &quarto);
-    clearBuffer();
+    clearBuffer(); 
 
-    // Verificar se há um hóspede com o nome e quarto correspondentes
+    // Verificar hospede
     for (int i = 0; i < totalHospedes; i++) {
-        // Verifica se o nome e quarto correspondem
+       
+        printf(" Depuração: Hóspede #%d\n Nome: %s \n Quarto: %d\n", i, hospedes[i].nome, hospedes[i].quarto);
+
+       
         if (strcmp(hospedes[i].nome, nome) == 0 && hospedes[i].quarto == quarto) {
-            encontrado = 1;  // Hóspede encontrado
+            encontrado = 1;  
             break;
         }
     }
 
     if (encontrado) {
-        printf("Check-in realizado com sucesso para %s, quarto %d.\n", nome, quarto);
+        printf(" Check-in realizado com sucesso para %s, quarto %d.\n", nome, quarto);
         return OK;
     } else {
-        printf("Não há reservas nesse nome ou quarto.\n");
+        printf(" Não há reservas com esse nome ou quarto.\n");
         return ERRO;
     }
 }
