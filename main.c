@@ -4,8 +4,10 @@
 int main() {
     Hospede hospedes[MAX_HOSPEDES];
     int totalHospedes = 0;
+    STATUS status;
 
     carregarHospedesTxt(hospedes, &totalHospedes);  // Carregar dados ao iniciar o programa
+    carregarHospedesBin(hospedes, &totalHospedes);
 
     int opcao;
     do {
