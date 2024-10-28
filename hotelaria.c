@@ -29,7 +29,7 @@ STATUS cadastrarHospede(Hospede *hospedes, int *totalHospedes) {
 
     // Adiciona o novo hóspede ao array
     hospedes[*totalHospedes] = novoHospede;
-    (*totalHospedes)++;  // Incrementa o total de hóspedes
+    (*totalHospedes)++;  
 
     // Salvar os hóspedes em um arquivo de texto e binário após cadastrar
     salvarHospedesTxt(hospedes, *totalHospedes);
@@ -40,23 +40,69 @@ STATUS cadastrarHospede(Hospede *hospedes, int *totalHospedes) {
 }
 
 STATUS salvarHospedesTxt(Hospede *hospedes, int totalHospedes) {
-    printf("Salvar TXT\n");
-    return OK;
+    FILE *file = fopen("hospedes.txt", "w");
+    if (file == NULL) {
+        return ABRIR;  
+    }
+
+    for (int i = 0; i < totalHospedes; i++) {
+        fprintf(file, "%d;%s;%s;%s;%d;%d\n", 
+                hospedes[i].id,
+                hospedes[i].nome,
+                hospedes[i].cpf,
+                hospedes[i].email,
+                hospedes[i].quarto,
+                hospedes[i].dias);
+    }
+
+    fclose(file);
+    return OK;  
 }
+
 
 STATUS carregarHospedesTxt(Hospede *hospedes, int *totalHospedes) {
-    printf("Carregar TXT\n");
-    return OK;
-}
-STATUS salvarHospedesBin(Hospede *hospedes, int totalHospedes) {
-    printf("Salvar BIN\n");
-    return OK;
+    FILE *file = fopen("hospedes.txt", "r");
+    if (file == NULL) {
+        return ARQUIVO_NAO_ENCONTRADO;  
+    }
+
+    while (fscanf(file, "%d;%99[^;];%14[^;];%99[^;];%d;%d\n", 
+                  &hospedes[*totalHospedes].id,
+                  hospedes[*totalHospedes].nome,
+                  hospedes[*totalHospedes].cpf,
+                  hospedes[*totalHospedes].email,
+                  &hospedes[*totalHospedes].quarto,
+                  &hospedes[*totalHospedes].dias) == 6) {
+        (*totalHospedes)++;
+    }
+
+    fclose(file);
+    return OK; 
 }
 
-STATUS carregarHospedesBin(Hospede *hospedes, int *totalHospedes) {
-    printf("Carregar BIN\n");
-    return OK;
+STATUS salvarHospedesBin(Hospede *hospedes, int totalHospedes) {
+    FILE *file = fopen("hospedes.bin", "wb");
+    if (file == NULL) {
+        return ABRIR;  
+    }
+
+    fwrite(hospedes, sizeof(Hospede), totalHospedes, file);
+    fclose(file);
+    return OK; 
 }
+
+
+STATUS carregarHospedesBin(Hospede *hospedes, int *totalHospedes) {
+    FILE *file = fopen("hospedes.bin", "rb");
+    if (file == NULL) {
+        return ARQUIVO_NAO_ENCONTRADO;  // Arquivo não encontrado
+    }
+
+    *totalHospedes = fread(hospedes, sizeof(Hospede), MAX_HOSPEDES, file);
+    fclose(file);
+    return OK;  
+}
+
 
 STATUS listarHospedes(Hospede *hospedes, int totalHospedes) {
     printf("Listar Hospede\n");
@@ -70,11 +116,11 @@ STATUS checkIn(Hospede *hospedes, int totalHospedes) {
 
     printf("Informe o nome do hóspede: ");
     fgets(nome, sizeof(nome), stdin);
-    nome[strcspn(nome, "\n")] = 0;  // Remove a nova linha do final
-
+    nome[strcspn(nome, "\n")] = 0;
+    
     printf("Informe o número do quarto: ");
     scanf("%d", &quarto);
-    clearBuffer();  // Limpa o buffer após a leitura
+    clearBuffer();
 
     // Verificar se há um hóspede com o nome e quarto correspondentes
     for (int i = 0; i < totalHospedes; i++) {
