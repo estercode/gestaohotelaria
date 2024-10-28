@@ -155,9 +155,22 @@ STATUS checkIn(Hospede *hospedes, int totalHospedes) {
 }
 
 STATUS checkOutHospede(Hospede *hospedes, int *totalHospedes) {
-    printf("CheckOut Hospede\n");
-    return OK;
+    int id;
+    printf("Digite o ID do hóspede para realizar check-out: ");
+    scanf("%d", &id);
+
+    if (id <= 0 || id > *totalHospedes) {
+        return ERRO;
+    }
+
+    for (int i = id - 1; i < *totalHospedes - 1; i++) {
+        hospedes[i] = hospedes[i + 1];
+    }
+    (*totalHospedes)--;
+
+    return salvarHospedesTxt(hospedes, *totalHospedes);
 }
+
 
 
 void clearBuffer() {
