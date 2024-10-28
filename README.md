@@ -3,7 +3,7 @@
 *Segundo projeto da disciplina de desenvolvimento de algorítimos: Gestão de Hotelaria*
 
 ## Objetivo do projeto
--Criar uma plataforma onde é possível fazer a gestão de hotéis de maneira rápida e simples
+Este é um sistema de hotelaria desenvolvido em C que permite gerenciar hóspedes, incluindo cadastro, registro de estadias e armazenamento de dados em arquivos binários e de texto. O sistema tem como objetivo simplificar a administração de hotéis, permitindo um acesso rápido e eficiente às informações dos hóspedes.
 
 ## Funcionalidades
 A plataforma conta com diversas funcionalidades
@@ -17,7 +17,7 @@ A plataforma conta com diversas funcionalidades
 
 ## Como pode ser compilado e executado
 - Programa criado em C
-- Para compilar é necessário que uma IDE compile códigos em C com as bibliotecas `stdio.h`,`string.h`, Para executar é necessário utilizar o comando gcc *.c && ./a.out
+- Para compilar é necessário que uma IDE compile códigos em C com as bibliotecas `stdio.h`,`string.h`. Para executar é necessário utilizar o comando gcc *.c && ./a.out
 
 ## Nome dos alunos
 Ester Pereira Dos S Nascimento RA: 22.123.110-3
